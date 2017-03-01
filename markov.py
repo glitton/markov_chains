@@ -12,7 +12,7 @@ def open_and_read_file(file_path):
 
     return text
 
-print open_and_read_file('green-eggs.txt')   
+# print open_and_read_file('green-eggs.txt')   
 
 
 def make_chains(text_string):
@@ -30,24 +30,18 @@ def make_chains(text_string):
 
     chains = {}
     words = text_string.split()
-    # words.append(None)
 
     dict_value = []
 
     for i in range(len(words)-2):
+
         key = (words[i], words[i+1])
         value = words[i+2]
-        # print key
-        # print value
-
-        
         values = chains.get(key, [])
         values.append(value)
-        chains[key] = values  
-    # print chains
+        chains[key] = values
+
     return chains
-
-
 
 def make_text(chains):
     """Takes dictionary of markov chains; returns random text."""
@@ -57,33 +51,29 @@ def make_text(chains):
     # get random item in the list associated with the random tuple
     #  shift the key by 1
     # get a random value associated with the new key
-    # if the word None appears in the loop, then stop]
+    # if the word None appears in the loop, then stop
     import random
     key_list = chains.keys()
-    # print key_list
     first_key = random.choice(key_list)
-    # print "first key", first_key
     random_value = chains.get(first_key)
-    # print random_value
     first_value = random.choice(random_value)
-    # print first_value
 
+    # create the first string and update with the new strings generated after
     new_string = ' '.join(first_key) + ' ' + first_value + ' '
 
     next_key = first_key[1]
     new_key = (next_key, first_value)
-    # print "new key", new_key
-
 
     while True:
-       
-        next_key_list = chains.get(new_key)
-
+        # gets the value (a list) associated with the new key from line 65
+        next_key_list = chains.get(new_key) 
+        # get random value from the list in 71
+        # print "next_key_list", next_key_list
         next_value = random.choice(next_key_list)
-        # print "the next value", next_value
-
+        # print "next_value", next_value
+        # creates the next new key 
         new_key = (new_key[1], next_value)
-        # print "the next key", new_key
+        # print "new_key", new_key
 
         new_string += next_value + ' '
 
