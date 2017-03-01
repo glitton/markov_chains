@@ -30,7 +30,7 @@ def make_chains(text_string):
 
     chains = {}
     words = text_string.split()
-    words.append(None)
+    # words.append(None)
 
     dict_value = []
 
@@ -60,23 +60,37 @@ def make_text(chains):
     # if the word None appears in the loop, then stop]
     import random
     key_list = chains.keys()
+    # print key_list
     first_key = random.choice(key_list)
-    print first_key
+    # print "first key", first_key
     random_value = chains.get(first_key)
-    print random_value
+    # print random_value
     first_value = random.choice(random_value)
-    print first_value
+    # print first_value
 
-    first_string = ' '.join(first_key) + ' ' + first_value
-    print first_string
+    new_string = ' '.join(first_key) + ' ' + first_value + ' '
+
+    next_key = first_key[1]
+    new_key = (next_key, first_value)
+    # print "new key", new_key
 
 
+    while True:
+       
+        next_key_list = chains.get(new_key)
 
-    text = ""
+        next_value = random.choice(next_key_list)
+        # print "the next value", next_value
 
-    # your code goes here
+        new_key = (new_key[1], next_value)
+        # print "the next key", new_key
 
-    return text
+        new_string += next_value + ' '
+
+        if chains.get(new_key) is None:
+            break
+
+    return new_string        
 
 
 input_path = "green-eggs.txt"
